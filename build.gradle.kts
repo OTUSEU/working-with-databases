@@ -1,7 +1,5 @@
-import org.gradle.internal.impldep.org.fusesource.jansi.AnsiRenderer.test
-
 plugins {
-    kotlin("jvm") version "1.7.21"
+    kotlin("jvm") version "1.8.21"
 
 }
 
@@ -22,11 +20,11 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion") // DAO api
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
 
-    implementation("org.xerial:sqlite-jdbc:3.39.3.0")
+    implementation("org.xerial:sqlite-jdbc:3.41.2.1")
     implementation("org.slf4j:slf4j-simple:2.0.7")
 
 
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.4.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.3")
 }
 
 //tasks.register("prepareKotlinBuildScriptModel"){}

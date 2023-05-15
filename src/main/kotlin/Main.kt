@@ -7,16 +7,35 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import repository.model.MapObjectTypeTable
 import repository.model.Ship
 
+// Создание и заполнение БД
 fun main() {
+    // присоединиться к бахе данных - инициирование
     DatabaseConnectionConfig.connect
+    // все выполнять в transaction
+    // Создание простейшей таблицы:
+/*    transaction {
+        // прежде чем мы создадим таблицу надо ее описать в MapObjectTypeTable
+        SchemaUtils.create(MapObjectTypeTable)
+    }
+    transaction {
+        MapObjectTypeTable.insert {
+            // это доступ к переменной - безопасное присвоение
+           // it[MapObjectTypeTable.symbol] = "\uD830\uDE85"
+           // it[symbol] = "\uD830\uDE85"
+            it[biliberda] = "😅"
+            it[type] = "new_string"
+        }
+    }
+*/
 
     transaction {
+        // прежде чем мы создадим таблицы надо ее описать в MapObjectTypeTable
         SchemaUtils.create(MapObjectTypeTable, Ship)
     }
 
     transaction {
         val mapObjectId = MapObjectTypeTable.insertAndGetId {
-            it[biliberda] = "\uD83D\uDE05"
+            it[biliberda] = "😅"
             it[type] = "new_string"
         }
 
@@ -29,4 +48,6 @@ fun main() {
     transaction {
         print(MapObjectTypeTable.selectAll().count())
     }
+
+
 }

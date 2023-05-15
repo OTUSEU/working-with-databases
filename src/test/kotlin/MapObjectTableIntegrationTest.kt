@@ -8,13 +8,21 @@ import org.junit.jupiter.api.Test
 import repository.model.MapObjectTypeTable
 import repository.model.Ship
 
+//import repository.model.Ship
+// Интеграционный тест
 class MapObjectTableIntegrationTest {
+   /* companion object {
+    @BeforeAll
+    fun init() {
+        DatabaseConnectionConfig.connect
+        }
+    }*/
 
     @Test
     fun shouldFindObject() {
         DatabaseConnectionConfig.connect
         transaction {
-            Assertions.assertEquals(1, MapObjectTypeTable.selectAll().count())
+            Assertions.assertEquals(2, MapObjectTypeTable.selectAll().count())
         }
 
         transaction {
@@ -28,8 +36,14 @@ class MapObjectTableIntegrationTest {
     fun shouldJoin() {
         DatabaseConnectionConfig.connect
         transaction {
-            Assertions.assertEquals(2, Ship.join(MapObjectTypeTable, JoinType.LEFT).select { Ship.map_object_id eq 2 }.count())
+            Ship.join(MapObjectTypeTable, JoinType.LEFT).selectAll().forEach{
+                println(it)
+            }
+            Assertions.assertEquals(1, Ship.join(MapObjectTypeTable, JoinType.LEFT).select { Ship.map_object_id eq 2 }.count())
+            // добавил руками ущу запись - у него ULTIMATE
             Assertions.assertEquals(1, Ship.join(MapObjectTypeTable, JoinType.LEFT).selectAll().count())
         }
     }
+
+
 }
